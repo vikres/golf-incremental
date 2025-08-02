@@ -1,0 +1,106 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhc7psx21mmmo"]
+
+[ext_resource type="Script" uid="uid://ddfg8ikk1emtw" path="res://scripts/Rock.gd" id="1_bxc2g"]
+[ext_resource type="Texture2D" uid="uid://dbqcjk8eve2sp" path="res://FG_Grasslands_Summer.png" id="2_n6kph"]
+
+[node name="SmallRock" type="Node2D"]
+z_index = 15
+texture_filter = 1
+scale = Vector2(1.3, 1.3)
+script = ExtResource("1_bxc2g")
+
+[node name="shadow" type="Sprite2D" parent="."]
+scale = Vector2(0.595, 0.595)
+texture = ExtResource("2_n6kph")
+offset = Vector2(0, -2.82)
+region_enabled = true
+region_rect = Rect2(458, 198, 28, 13)
+region_filter_clip_enabled = true
+
+[node name="rock1" type="Sprite2D" parent="."]
+texture = ExtResource("2_n6kph")
+offset = Vector2(0, -7.975)
+region_enabled = true
+region_rect = Rect2(384, 48, 16, 16)
+region_filter_clip_enabled = true
+
+[node name="rock2" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_n6kph")
+offset = Vector2(0, -7.975)
+region_enabled = true
+region_rect = Rect2(384, 64, 16, 16)
+region_filter_clip_enabled = true
+
+[node name="rock3" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_n6kph")
+offset = Vector2(0, -7.975)
+region_enabled = true
+region_rect = Rect2(384, 80, 16, 16)
+region_filter_clip_enabled = true
+
+[node name="rock4" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_n6kph")
+offset = Vector2(0, -7.975)
+region_enabled = true
+region_rect = Rect2(400, 48, 16, 16)
+region_filter_clip_enabled = true
+
+[node name="rock5" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_n6kph")
+offset = Vector2(0, -7.975)
+region_enabled = true
+region_rect = Rect2(400, 80, 16, 16)
+region_filter_clip_enabled = true
+
+[node name="rock6" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_n6kph")
+offset = Vector2(0, -7.975)
+region_enabled = true
+region_rect = Rect2(384, 80, 16, 16)
+region_filter_clip_enabled = true
+
+[node name="rock7" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_n6kph")
+offset = Vector2(0, -7.975)
+region_enabled = true
+region_rect = Rect2(400, 64, 16, 16)
+region_filter_clip_enabled = true
+
+[node name="rock8" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_n6kph")
+offset = Vector2(0, -7.975)
+region_enabled = true
+region_rect = Rect2(416, 64, 16, 16)
+region_filter_clip_enabled = true
+
+[node name="rock9" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_n6kph")
+offset = Vector2(0, -7.975)
+region_enabled = true
+region_rect = Rect2(432, 64, 16, 16)
+region_filter_clip_enabled = true
+
+[node name="rubble" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-0.605, 7.575)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("2_n6kph")
+offset = Vector2(0, -8.1)
+region_enabled = true
+region_rect = Rect2(100, 228, 7, 8)
+region_filter_clip_enabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(0, 1)
+build_mode = 1
+polygon = PackedVector2Array(-4.44444, -2.11111, 4.44444, -2.11111, 6.66667, -4.33333, 6.66667, -9.88889, 4.44444, -13.2222, 2.22222, -15.4444, 0, -15.4444, -2.22222, -15.4444, -4.44444, -13.2222, -6.66667, -9.88889, -6.66667, -4.33333)

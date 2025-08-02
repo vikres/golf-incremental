@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://2us60kajixql"]
+
+[ext_resource type="Script" uid="uid://31egsbijwcog" path="res://scripts/Tree.gd" id="1_84637"]
+[ext_resource type="Texture2D" uid="uid://dbqcjk8eve2sp" path="res://FG_Grasslands_Summer.png" id="2_7s0om"]
+
+[node name="SmallTree" type="Node2D"]
+z_index = 15
+texture_filter = 1
+scale = Vector2(0.9, 0.9)
+script = ExtResource("1_84637")
+
+[node name="shadow" type="Sprite2D" parent="."]
+texture = ExtResource("2_7s0om")
+offset = Vector2(0, -2.82)
+region_enabled = true
+region_rect = Rect2(458, 198, 28, 13)
+region_filter_clip_enabled = true
+
+[node name="tree" type="Sprite2D" parent="."]
+texture = ExtResource("2_7s0om")
+offset = Vector2(0, -24.27)
+region_enabled = true
+region_rect = Rect2(456, 144, 32, 48)
+region_filter_clip_enabled = true
+
+[node name="stump" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_7s0om")
+offset = Vector2(0, -8.1)
+region_enabled = true
+region_rect = Rect2(496, 128, 16, 16)
+region_filter_clip_enabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(0, 1)
+build_mode = 1
+polygon = PackedVector2Array(-4, -4, 4, -4, 4, -18, 9, -21, 12, -27, 14, -34, 12, -41, 2, -47, -2, -47, -11, -42, -14, -35, -12, -27, -9, -21, -4, -18)

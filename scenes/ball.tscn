@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bttn0fxae02ot"]
+
+[ext_resource type="Script" uid="uid://bfgdwc62iqena" path="res://scripts/ball.gd" id="1_41u45"]
+[ext_resource type="Script" uid="uid://ckws686bgbw8u" path="res://scripts/BallVisual.gd" id="3_f7cbr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_41u45"]
+radius = 13.0
+
+[node name="GolfBall" type="CharacterBody2D" groups=["ball"]]
+script = ExtResource("1_41u45")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_41u45")
+
+[node name="BallVisual" type="Node2D" parent="."]
+script = ExtResource("3_f7cbr")
+debug_mode = true
+
+[node name="BallSprite" type="Sprite2D" parent="BallVisual"]
+
+[node name="ShadowSprite" type="Sprite2D" parent="BallVisual"]

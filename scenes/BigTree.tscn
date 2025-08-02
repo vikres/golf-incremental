@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://rxeyr86rxl55"]
+
+[ext_resource type="Script" uid="uid://31egsbijwcog" path="res://scripts/Tree.gd" id="1_nyy50"]
+[ext_resource type="Texture2D" uid="uid://dbqcjk8eve2sp" path="res://FG_Grasslands_Summer.png" id="2_phhmi"]
+
+[node name="BigTree" type="Node2D"]
+z_index = 15
+texture_filter = 1
+script = ExtResource("1_nyy50")
+
+[node name="shadow" type="Sprite2D" parent="."]
+texture = ExtResource("2_phhmi")
+offset = Vector2(0, 2)
+region_enabled = true
+region_rect = Rect2(384, 192, 48, 32)
+region_filter_clip_enabled = true
+
+[node name="tree" type="Sprite2D" parent="."]
+texture = ExtResource("2_phhmi")
+offset = Vector2(0, -32)
+region_enabled = true
+region_rect = Rect2(384, 128, 48, 64)
+region_filter_clip_enabled = true
+
+[node name="stump" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_phhmi")
+offset = Vector2(0, -8.1)
+region_enabled = true
+region_rect = Rect2(496, 128, 16, 16)
+region_filter_clip_enabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+build_mode = 1
+polygon = PackedVector2Array(-5, -4, 3, -4, 4, -18, 15, -21, 21, -35, 14, -49, 0, -55, -14, -49, -21, -39, -18, -25, -12, -19, -5, -18)

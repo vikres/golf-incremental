@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://y25s6xipvysa"]
+
+[ext_resource type="Script" uid="uid://dl4gb1f4ja85b" path="res://scripts/UpgradeCard.gd" id="1_eg52a"]
+[ext_resource type="Texture2D" uid="uid://dnit750ki8kp8" path="res://icon.svg" id="2_ggpue"]
+
+[node name="UpgradeCard" type="Control"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 250.0
+offset_bottom = 60.0
+script = ExtResource("1_eg52a")
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="BackgroundPanel/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_ggpue")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="InfoContainer" type="VBoxContainer" parent="BackgroundPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLabel" type="Label" parent="BackgroundPanel/HBoxContainer/InfoContainer"]
+layout_mode = 2
+text = "Upgrade name"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundPanel/HBoxContainer/InfoContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="CostLabel" type="Label" parent="BackgroundPanel/HBoxContainer/InfoContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "10 coins"
+
+[node name="LevelLabel" type="Label" parent="BackgroundPanel/HBoxContainer/InfoContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Level: 0/3"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="BackgroundPanel/HBoxContainer/InfoContainer/HBoxContainer"]
+custom_minimum_size = Vector2(5.18, 0)
+layout_mode = 2

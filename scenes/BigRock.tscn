@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://hm586p7prn1a"]
+
+[ext_resource type="Script" uid="uid://ddfg8ikk1emtw" path="res://scripts/Rock.gd" id="1_1xmh2"]
+[ext_resource type="Texture2D" uid="uid://dbqcjk8eve2sp" path="res://FG_Grasslands_Summer.png" id="2_jsat5"]
+
+[node name="BigRock" type="Node2D"]
+z_index = 15
+texture_filter = 1
+scale = Vector2(1.3, 1.3)
+script = ExtResource("1_1xmh2")
+
+[node name="shadow" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-9.53674e-07, 7.69231)
+scale = Vector2(1.17662, 1.18115)
+texture = ExtResource("2_jsat5")
+offset = Vector2(0, -2.82)
+region_enabled = true
+region_rect = Rect2(458, 198, 28, 13)
+region_filter_clip_enabled = true
+
+[node name="rock1" type="Sprite2D" parent="."]
+texture = ExtResource("2_jsat5")
+offset = Vector2(0, -7.975)
+region_enabled = true
+region_rect = Rect2(480, 49, 32, 32)
+region_filter_clip_enabled = true
+
+[node name="rock2" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_jsat5")
+offset = Vector2(0, -7.975)
+region_enabled = true
+region_rect = Rect2(480, 81, 32, 32)
+region_filter_clip_enabled = true
+
+[node name="rubble" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-0.605, 7.575)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_jsat5")
+offset = Vector2(0, -5.925)
+region_enabled = true
+region_rect = Rect2(66, 241, 13, 14)
+region_filter_clip_enabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(0, 10.77)
+scale = Vector2(2.1, 2.1)
+build_mode = 1
+polygon = PackedVector2Array(-4.44444, -2.11111, 4.44444, -2.11111, 6.66667, -4.33333, 6.66667, -9.88889, 4.44444, -13.2222, 2.22222, -15.4444, 0, -15.4444, -2.22222, -15.4444, -4.44444, -13.2222, -6.66667, -9.88889, -6.66667, -4.33333)
