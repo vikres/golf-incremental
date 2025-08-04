@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://drwaepn62k0pe"]
+
+[ext_resource type="Texture2D" uid="uid://qyt4jahmyl03" path="res://leaderboard o 2.png" id="1_btlw5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6j4u"]
+atlas = ExtResource("1_btlw5")
+region = Rect2(1, 541, 890, 79)
+
+[node name="ScoreboardLine" type="TextureRect"]
+offset_left = 256.0
+offset_top = 259.0
+offset_right = 1160.0
+offset_bottom = 338.0
+scale = Vector2(0.68, 0.7)
+texture = SubResource("AtlasTexture_y6j4u")
+
+[node name="TitleLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.26
+anchor_top = 0.34
+anchor_right = 0.74
+anchor_bottom = 0.84
+offset_left = -195.334
+offset_top = -11.1457
+offset_right = -398.254
+offset_bottom = -10.6457
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "Par: NOTESTT
+kiej"
+
+[node name="ValueLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 326.0
+offset_top = 16.0
+offset_right = 829.0
+offset_bottom = 56.0
+text = "test abc"
