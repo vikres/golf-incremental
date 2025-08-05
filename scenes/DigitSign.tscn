@@ -1,0 +1,258 @@
+[gd_scene load_steps=4 format=3 uid="uid://f0w3o0611im3"]
+
+[ext_resource type="Texture2D" uid="uid://cdg18o5e1er2a" path="res://board.png" id="1_2bdga"]
+[ext_resource type="FontFile" uid="uid://d2iju0xqnrfft" path="res://coolfoot.ttf" id="3_s4xtv"]
+
+[sub_resource type="GDScript" id="GDScript_ugx83"]
+script/source = "extends Control
+class_name DigitSign
+
+@onready var chain_sprite = $ChainSprite
+@onready var number_label = $NumberLabel
+
+var current_digit = \"\"
+var swing_timer = 0.0
+var swing_speed = 0.8
+var swing_range = 1.5
+var is_animating = false
+var visual_container: Control
+var last_position: Vector2
+var container_setup = false
+
+func _ready():
+	# Random starting phase for natural movement
+	swing_timer = randf() * PI * 2
+	swing_speed += randf_range(-0.1, 0.1)
+	
+	# Setup visual container on next frame to ensure all nodes are ready
+	call_deferred(\"setup_visual_container\")
+
+func setup_visual_container():
+	# Prevent multiple setups
+	if container_setup or not chain_sprite or not number_label:
+		return
+		
+	container_setup = true
+	
+	# Create a container for visual effects
+	visual_container = Control.new()
+	visual_container.name = \"VisualContainer\"
+	visual_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	
+	# Store original positions BEFORE moving nodes
+	var chain_original_pos = chain_sprite.position
+	var label_original_pos = number_label.position
+	
+	# Add visual container first
+	add_child(visual_container)
+	
+	# Move nodes to visual container (this removes them from their original parent)
+	chain_sprite.reparent(visual_container)
+	number_label.reparent(visual_container)
+	
+	# Restore their relative positions
+	chain_sprite.position = chain_original_pos
+	number_label.position = label_original_pos
+	
+	# Initialize last position
+	last_position = global_position
+	
+	print(\"Visual container setup complete for: \", current_digit)
+
+func animate_position_change():
+	if not visual_container or is_animating or not container_setup:
+		return
+	
+	# Calculate the difference from where we were
+	var position_diff = last_position - global_position
+	
+	print(\"Animating position change, diff: \", position_diff)
+	
+	# Only animate if there's a significant X difference
+	if abs(position_diff.x) > 2:
+		is_animating = true
+		
+		# Start the visual container offset by the difference
+		visual_container.position.x = position_diff.x
+		
+		# Animate back to center
+		var tween = create_tween()
+		tween.tween_property(visual_container, \"position:x\", 0.0, 0.4)
+		tween.set_ease(Tween.EASE_OUT)
+		tween.set_trans(Tween.TRANS_QUART)
+		tween.finished.connect(func(): is_animating = false)
+
+func reset_visual_state():
+	# Reset all visual properties to normal
+	if visual_container and container_setup:
+		visual_container.position = Vector2.ZERO
+		visual_container.rotation = 0.0
+		visual_container.scale = Vector2.ONE
+		visual_container.modulate.a = 1.0
+	# Update last position to current
+	last_position = global_position
+
+func _process(delta):
+	if not container_setup:
+		return
+		
+	# Initialize last_position if not set
+	if last_position == Vector2.ZERO:
+		last_position = global_position
+	
+	# Check if our layout position changed (HBoxContainer moved us)
+	if global_position.distance_to(last_position) > 1.0:
+		print(\"Position changed from \", last_position, \" to \", global_position)
+		animate_position_change()
+		last_position = global_position
+	
+	# Continuous gentle swinging (only when not doing major animations)
+	if not is_animating and visual_container:
+		swing_timer += delta * swing_speed
+		visual_container.rotation = sin(swing_timer) * deg_to_rad(swing_range)
+
+func animate_digit_change(new_digit: String):
+	if new_digit == current_digit or not visual_container or not container_setup:
+		return
+	
+	is_animating = true
+	current_digit = new_digit
+	
+	# Vertical flip animation using scale.y on visual container
+	var tween = create_tween()
+	
+	# Flip to edge-on
+	tween.tween_property(visual_container, \"scale:y\", 0.0, 0.1)
+	tween.tween_callback(func(): 
+		number_label.text = current_digit
+		await get_tree().process_frame
+	)
+	# Flip back to normal
+	tween.tween_property(visual_container, \"scale:y\", 1.0, 0.1)
+	
+	tween.set_ease(Tween.EASE_OUT)
+	tween.finished.connect(func(): is_animating = false)
+
+func animate_slide_in():
+	if not container_setup:
+		# If container isn't setup yet, wait for it
+		await get_tree().create_timer(0.1).timeout
+		if not container_setup:
+			return
+	
+	if not visual_container:
+		return
+		
+	is_animating = true
+	
+	# Get screen width for proper off-screen positioning
+	var screen_width = get_viewport().get_visible_rect().size.x
+	var slide_distance = screen_width + 100  # Start off-screen to the right
+	
+	# Start the visual container off-screen to the right
+	visual_container.position.x = slide_distance
+	visual_container.rotation = deg_to_rad(45)
+	visual_container.modulate.a = 0.7
+	
+	# Animate slide in to center position
+	var tween = create_tween()
+	tween.set_parallel(true)
+	
+	tween.tween_property(visual_container, \"position:x\", 0.0, 0.6)
+	tween.tween_property(visual_container, \"rotation\", 0.0, 0.6)
+	tween.tween_property(visual_container, \"modulate:a\", 1.0, 0.4)
+	
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_BACK)
+	tween.finished.connect(func(): is_animating = false)
+
+func animate_visual_fall():
+	if not visual_container or not container_setup:
+		return
+		
+	is_animating = true
+	
+	# Stop the gentle swinging immediately
+	visual_container.rotation = 0.0
+	
+	# Chain break effect - small upward jerk first
+	var initial_tween = create_tween()
+	initial_tween.tween_property(visual_container, \"position:y\", visual_container.position.y - 10, 0.1)
+	initial_tween.finished.connect(_start_visual_falling)
+
+func _start_visual_falling():
+	if not visual_container or not container_setup:
+		return
+		
+	# Fall down with tumbling
+	var screen_height = get_viewport().get_visible_rect().size.y
+	var fall_distance = screen_height + 100
+	var random_x_drift = randf_range(-50, 50)
+	var current_pos = visual_container.position
+	
+	var tween = create_tween()
+	tween.set_parallel(true)
+	
+	# Falling motion from current position
+	tween.tween_property(visual_container, \"position\", 
+		Vector2(current_pos.x + random_x_drift, current_pos.y + fall_distance), 1.2)
+	tween.set_trans(Tween.TRANS_QUART)
+	tween.set_ease(Tween.EASE_IN)
+	
+	# Tumbling rotation from current rotation
+	var tumble_rotation = visual_container.rotation + deg_to_rad(randf_range(720, 1440))
+	tween.tween_property(visual_container, \"rotation\", tumble_rotation, 1.2)
+	tween.set_ease(Tween.EASE_OUT)
+	
+	# Fade out near the end
+	await get_tree().create_timer(0.8).timeout
+	if visual_container:  # Safety check
+		var fade_tween = create_tween()
+		fade_tween.tween_property(visual_container, \"modulate:a\", 0.0, 0.4)
+
+func queue_hide_after_fall():
+	# Hide the entire sign after fall animation completes
+	await get_tree().create_timer(1.5).timeout
+	visible = false
+	# Reset visual state in case it gets reused
+	reset_visual_state()
+
+func animate_entrance():
+	# Legacy function - now just calls slide_in
+	animate_slide_in()
+"
+
+[node name="DigitSign" type="Control"]
+custom_minimum_size = Vector2(46, 110)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 46.0
+offset_bottom = 110.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = SubResource("GDScript_ugx83")
+
+[node name="ChainSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(23, 55)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_2bdga")
+
+[node name="NumberLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.0
+offset_top = 19.0
+offset_right = 16.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_s4xtv")
+theme_override_font_sizes/font_size = 40
+text = "1"
+horizontal_alignment = 1
