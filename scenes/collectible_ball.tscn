@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3gedayvky1on"]
+
+[ext_resource type="Texture2D" uid="uid://d1akgprnuxhwg" path="res://miniball.png" id="1_5ukeu"]
+[ext_resource type="Script" uid="uid://d0rmxj0u3hdb0" path="res://scripts/collectible_ball.gd" id="1_ovjnm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ovjnm"]
+radius = 45.0
+
+[node name="CollectibleBall" type="Area2D"]
+z_index = 5
+collision_layer = 4
+script = ExtResource("1_ovjnm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("1_5ukeu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.15, 0.15)
+shape = SubResource("CircleShape2D_ovjnm")

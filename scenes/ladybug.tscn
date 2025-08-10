@@ -1,0 +1,90 @@
+[gd_scene load_steps=13 format=3 uid="uid://c0oelkum787wo"]
+
+[ext_resource type="Script" uid="uid://f2bg5y48kqt2" path="res://scripts/ladybug.gd" id="1_6t1ip"]
+[ext_resource type="Texture2D" uid="uid://bcwm0ndw56f25" path="res://ladybugANIM (1).png" id="2_6t1ip"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwaxm"]
+atlas = ExtResource("2_6t1ip")
+region = Rect2(0, 0, 200, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ryjd"]
+atlas = ExtResource("2_6t1ip")
+region = Rect2(0, 250, 200, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvu2m"]
+atlas = ExtResource("2_6t1ip")
+region = Rect2(0, 500, 200, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lg3p"]
+atlas = ExtResource("2_6t1ip")
+region = Rect2(0, 750, 200, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwfuc"]
+atlas = ExtResource("2_6t1ip")
+region = Rect2(0, 1000, 200, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqn3u"]
+atlas = ExtResource("2_6t1ip")
+region = Rect2(0, 1250, 200, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ergs8"]
+atlas = ExtResource("2_6t1ip")
+region = Rect2(0, 1500, 200, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xivyp"]
+atlas = ExtResource("2_6t1ip")
+region = Rect2(0, 1750, 200, 250)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dvu2m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwaxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ryjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvu2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lg3p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwfuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqn3u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ergs8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xivyp")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cwaxm"]
+radius = 9.0
+
+[node name="ladybug" type="CharacterBody2D"]
+script = ExtResource("1_6t1ip")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 10
+position = Vector2(-5.96046e-08, -1.19209e-07)
+rotation = 1.5708
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_dvu2m")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cwaxm")
