@@ -1,0 +1,50 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="golf incremental"
+run/main_scene="uid://mfrnmd2y22i1"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+UpgradeManager="*res://scripts/UpgradeManager.gd"
+GameManager="*res://scripts/GameManager.gd"
+CourseManager="*res://scripts/CourseManager.gd"
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+window/snap/snap_2d_transforms_to_pixel=false
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/scene_manager/plugin.cfg")
+
+[global_group]
+
+walls=""
+ball=""
+
+[layer_names]
+
+2d_physics/layer_1="wall"
+2d_physics/layer_2="water"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+2d/snap/snap_2d_vertices_to_pixel=true

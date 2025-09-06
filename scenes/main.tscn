@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://mfrnmd2y22i1"]
+
+[ext_resource type="PackedScene" uid="uid://b5tcoxgc55r46" path="res://scenes/UI.tscn" id="1_jyhfs"]
+[ext_resource type="Script" uid="uid://dp8skc3mu8xwc" path="res://scripts/label.gd" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://deegwdudolpk6" path="res://scenes/completion_board.tscn" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://bttn0fxae02ot" path="res://scenes/ball.tscn" id="3_tefeu"]
+[ext_resource type="Script" uid="uid://cduik45hwruie" path="res://scripts/LocalViewportCover.gd" id="5_tbgi4"]
+
+[node name="main" type="Node2D"]
+
+[node name="UI" parent="." instance=ExtResource("1_jyhfs")]
+
+[node name="FPS" type="Label" parent="UI"]
+offset_left = 914.0
+offset_top = 523.0
+offset_right = 954.0
+offset_bottom = 546.0
+text = "10fps"
+script = ExtResource("2_tbgi4")
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelViewportContainer" type="SubViewportContainer" parent="."]
+clip_contents = true
+offset_left = 35.0
+offset_top = 20.0
+offset_right = 851.0
+offset_bottom = 612.0
+
+[node name="LevelViewport" type="SubViewport" parent="LevelViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(816, 592)
+render_target_update_mode = 4
+
+[node name="GameRoot" type="Node2D" parent="LevelViewportContainer/LevelViewport"]
+
+[node name="GolfBall" parent="LevelViewportContainer/LevelViewport/GameRoot" instance=ExtResource("3_tefeu")]
+z_index = 20
+collision_mask = 15
+
+[node name="Camera2D" type="Camera2D" parent="LevelViewportContainer/LevelViewport/GameRoot"]
+
+[node name="level" parent="LevelViewportContainer/LevelViewport/GameRoot" instance_placeholder="res://levels/level5.tscn"]
+
+[node name="ViewportCover" type="CanvasLayer" parent="LevelViewportContainer/LevelViewport"]
+script = ExtResource("5_tbgi4")
+
+[node name="BoardLayer" type="CanvasLayer" parent="LevelViewportContainer/LevelViewport"]
+layer = 101
+
+[node name="CompletionBoard" parent="LevelViewportContainer/LevelViewport/BoardLayer" instance=ExtResource("3_jyhfs")]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

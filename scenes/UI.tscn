@@ -1,0 +1,379 @@
+[gd_scene load_steps=16 format=3 uid="uid://b5tcoxgc55r46"]
+
+[ext_resource type="Script" uid="uid://bmx0ty7f6sghc" path="res://scripts/ShopUI.gd" id="1_ro3t7"]
+[ext_resource type="Texture2D" uid="uid://cdg18o5e1er2a" path="res://board.png" id="2_5sqrc"]
+[ext_resource type="Script" uid="uid://0ok17o1l8m04" path="res://scripts/MoneyDisplay.gd" id="2_ro3t7"]
+[ext_resource type="Script" uid="uid://dmoh421h48e0q" path="res://scripts/rich_text_label.gd" id="4_75u2n"]
+[ext_resource type="Script" uid="uid://dgkklwy4umq6k" path="res://scripts/hover_tooltip.gd" id="4_ua6yw"]
+[ext_resource type="Texture2D" uid="uid://dq608owipqh4r" path="res://scroll.png" id="5_3wlde"]
+[ext_resource type="Script" uid="uid://4axhjdde67ec" path="res://scripts/terraintopright.gd" id="7_7paak"]
+[ext_resource type="Texture2D" uid="uid://dkrk0akkfr3qx" path="res://miniwoodybutton.png" id="7_24e4x"]
+[ext_resource type="FontFile" uid="uid://d2iju0xqnrfft" path="res://coolfoot.ttf" id="8_aputy"]
+[ext_resource type="Texture2D" uid="uid://b8ojhyb2pdomj" path="res://miniball2.png" id="9_w7enk"]
+[ext_resource type="Texture2D" uid="uid://bl12fufosn5gf" path="res://nextarrow.png" id="12_7paak"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5en4g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5en4g"]
+content_margin_left = 12.0
+content_margin_right = 12.0
+bg_color = Color(0.627451, 0.52549, 0.360784, 1)
+border_width_top = 3
+border_color = Color(0.831373, 0.686275, 0.215686, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_75u2n"]
+content_margin_left = 12.0
+content_margin_right = 12.0
+bg_color = Color(0.611334, 0.510704, 0.385281, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ua6yw"]
+content_margin_left = 12.0
+content_margin_right = 12.0
+bg_color = Color(0.54704, 0.452703, 0.334792, 1)
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="TopRightTab" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 863.0
+offset_top = 20.0
+offset_right = 1129.0
+offset_bottom = 420.0
+size_flags_horizontal = 4
+
+[node name="ColorRect" type="ColorRect" parent="TopRightTab"]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="TopRightTab"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_5en4g")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_5en4g")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_75u2n")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_ua6yw")
+tab_alignment = 1
+current_tab = 0
+all_tabs_in_front = true
+
+[node name="Upgrades" type="Control" parent="TopRightTab/TabContainer"]
+layout_mode = 2
+script = ExtResource("1_ro3t7")
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TopRightTab/TabContainer/Upgrades"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="ShopContainer" type="VBoxContainer" parent="TopRightTab/TabContainer/Upgrades/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="UpgradeCard" parent="TopRightTab/TabContainer/Upgrades/ScrollContainer/ShopContainer" instance_placeholder="res://scenes/UpgradeCard.tscn"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Info" type="Control" parent="TopRightTab/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TopRightTab/TabContainer/Info"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TopRightTab/TabContainer/Info/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/italics_font_size = 15
+theme_override_font_sizes/normal_font_size = 13
+theme_override_font_sizes/bold_font_size = 13
+bbcode_enabled = true
+text = "test
+hello
+lplpe"
+scroll_active = false
+script = ExtResource("4_75u2n")
+
+[node name="HoverTooltip" type="Control" parent="." groups=["tooltip"]]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -155.0
+offset_right = 414.0
+offset_bottom = -55.0
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+mouse_filter = 1
+script = ExtResource("4_ua6yw")
+
+[node name="ScrollMain" type="Control" parent="HoverTooltip"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollText" type="TextureRect" parent="HoverTooltip/ScrollMain"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_3wlde")
+expand_mode = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HoverTooltip/ScrollMain"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.036
+anchor_top = 0.212
+anchor_right = 0.903
+anchor_bottom = 0.792
+offset_left = 0.0959988
+offset_top = 1.3
+offset_right = 0.15799
+offset_bottom = 1.3
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.398345, 0.223801, 0.103684, 1)
+theme_override_colors/font_outline_color = Color(0.938808, 0.710953, 0.569959, 1)
+theme_override_colors/font_shadow_color = Color(0.562765, 0.304372, 0.132961, 0.619608)
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/normal_font = ExtResource("8_aputy")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Test Popup toolbox! ekfifjwijgorhgor"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightHandle" type="Control" parent="HoverTooltip"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TerrainTab" type="Control" parent="."]
+z_index = 100
+layout_mode = 3
+anchor_left = 0.026
+anchor_top = 0.031
+anchor_right = 0.734
+anchor_bottom = 0.944
+offset_left = 0.0480003
+offset_top = -0.0880013
+offset_right = 0.431946
+offset_bottom = 0.287964
+mouse_filter = 1
+
+[node name="Control2" type="Control" parent="TerrainTab"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -746.0
+offset_top = 25.0
+offset_right = -746.0
+offset_bottom = 25.0
+grow_horizontal = 0
+script = ExtResource("7_7paak")
+ball_texture = ExtResource("9_w7enk")
+
+[node name="TextureRect" type="TextureRect" parent="TerrainTab/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 527.0
+offset_top = -6.5
+offset_right = 727.0
+offset_bottom = 82.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_24e4x")
+stretch_mode = 2
+
+[node name="currLevel" type="Label" parent="TerrainTab/Control2/TextureRect"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 52.0
+offset_right = 146.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(0.944141, 0.860106, 0.691455, 1)
+theme_override_colors/font_shadow_color = Color(0.392157, 0.203922, 0.0784314, 0.619608)
+theme_override_colors/font_outline_color = Color(0.239166, 0.126168, 0.0461185, 1)
+theme_override_constants/shadow_offset_x = -4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/font = ExtResource("8_aputy")
+theme_override_font_sizes/font_size = 28
+text = "level 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+uppercase = true
+
+[node name="currPar" type="Label" parent="TerrainTab/Control2/TextureRect"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 56.0
+offset_top = 60.5
+offset_right = 143.0
+offset_bottom = 93.5
+theme_override_colors/font_color = Color(0.944141, 0.860106, 0.691455, 1)
+theme_override_colors/font_shadow_color = Color(0.392157, 0.203922, 0.0784314, 0.619608)
+theme_override_colors/font_outline_color = Color(0.239166, 0.126168, 0.0461185, 1)
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/font = ExtResource("8_aputy")
+theme_override_font_sizes/font_size = 22
+text = "par 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TerrainTab/Control2"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 543.0
+offset_top = 25.0
+offset_right = 707.0
+offset_bottom = 44.0
+grow_horizontal = 0
+alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="TerrainTab/Control2"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 673.0
+offset_top = -2.0
+offset_right = 777.0
+offset_bottom = 48.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_7paak")
+
+[node name="TextureRect3" type="TextureRect" parent="TerrainTab/Control2"]
+layout_mode = 0
+offset_left = 529.0
+offset_top = -2.0
+offset_right = 629.0
+offset_bottom = 48.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_7paak")
+flip_h = true
+
+[node name="MoneyDisplay" type="Control" parent="TerrainTab" node_paths=PackedStringArray("digit_template")]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_vertical = 0
+script = ExtResource("2_ro3t7")
+digit_template = NodePath("Template")
+
+[node name="Template" type="Control" parent="TerrainTab/MoneyDisplay"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+scale = Vector2(0.9, 0.9)
+
+[node name="TextureRect" type="TextureRect" parent="TerrainTab/MoneyDisplay/Template"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.0
+offset_top = -58.5
+offset_right = 29.0
+offset_bottom = 58.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5sqrc")
+
+[node name="Label" type="Label" parent="TerrainTab/MoneyDisplay/Template/TextureRect"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.95
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -14.0
+offset_top = -41.0
+offset_right = 14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.945098, 0.858824, 0.690196, 1)
+theme_override_colors/font_shadow_color = Color(0.392157, 0.203922, 0.0784314, 0.619608)
+theme_override_colors/font_outline_color = Color(0.239216, 0.12549, 0.0470588, 1)
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/font = ExtResource("8_aputy")
+theme_override_font_sizes/font_size = 46
+text = "$"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DigitContainer" type="HBoxContainer" parent="TerrainTab/MoneyDisplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
